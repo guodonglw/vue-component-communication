@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  props: ['toChild'],
+  props: ['toChild'],  // 获取父组件传值
   data () {
     return {
       message: '我是子组件'
@@ -21,6 +21,7 @@ export default {
     }
   },
   methods: {
+    // 向父组件传值函数
     sendToFather: function () {
       this.$emit('getChildData', '我是子组件传给父组件的值')
     }
