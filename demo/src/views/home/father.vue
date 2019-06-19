@@ -1,21 +1,24 @@
 <template>
   <div class="father">
     <div>
-      <div class="box">
-        <div>
-          {{message}}
+      <button class="button" @click="show = !show">父组件动画效果</button>
+      <transition name="custom-classes-transition"
+        enter-active-class="animated tada"
+        leave-active-class="animated bounceOutRight">
+        <div class="box" v-if="show">
+          <div>
+            {{message}}
+          </div>
+          <button class="button" @click="sendToChild">父传子</button>
         </div>
-        <button class="button" @click="sendToChild">父传子</button>
-      </div>
-
-      <!--调用子组件，并绑定要传给子组件的参数，并指定接收子组件传值的方法-->
+      </transition>
       <child :toChild = 'toChild' @getChildData = 'getChildData'></child>
     </div>
   </div>
 </template>
 
 <script>
-import Child from './components/child'  // 该处引入子组件
+import Child from './components/child'
 
 export default {
   components: {
@@ -24,15 +27,14 @@ export default {
   data () {
     return {
       message: '我是父组件',
-      toChild: ''
+      toChild: '',
+      show: true
     }
   },
   methods: {
-    // 传值到子组件的函数
     sendToChild: function () {
       this.toChild = '我是父组件传给子组件的值'
     },
-    // 接收子组件传值的函数
     getChildData: function (val) {
       this.message = val
     }
@@ -57,5 +59,23 @@ export default {
   .button {
     margin: 20px;
     overflow: hidden;
+  }
+
+  .bounce-enter-active {
+    animation: bounce-in .5s;
+  }
+  .bounce-leave-active {
+    animation: bounce-in .5s reverse;
+  }
+  @keyframes bounce-in {
+    0% {
+      transform: scale(0);
+    }
+    50% {
+      transform: scale(1.5);
+    }
+    100% {
+      transform: scale(1);
+    }
   }
 </style>

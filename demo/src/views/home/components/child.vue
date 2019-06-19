@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  props: ['toChild'],  // 获取父组件传值
+  props: ['toChild'], // 获取父组件传值
   data () {
     return {
       message: '我是子组件'
